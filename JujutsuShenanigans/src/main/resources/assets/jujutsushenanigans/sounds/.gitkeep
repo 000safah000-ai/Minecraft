@@ -1,0 +1,3 @@
+// Sound files (.ogg format)
+// Place sound effects here, referenced by sounds.json
+// Fail-Safe: Missing sound files will NOT cause crashes

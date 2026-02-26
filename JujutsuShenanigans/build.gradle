@@ -1,0 +1,146 @@
+plugins {
+    id 'fabric-loom' version '1.9-SNAPSHOT'
+    id 'maven-publish'
+}
+
+version = project.mod_version
+group = project.maven_group
+
+base {
+    archivesName = project.archives_base_name
+}
+
+// Split client/server source sets (Fabric best practice)
+loom {
+    splitEnvironmentSourceSets()
+
+    mods {
+        "${project.mod_id}" {
+            sourceSet sourceSets.main
+            sourceSet sourceSets.client
+        }
+    }
+}
+
+repositories {
+    // Veil (FoundryMC) - primary rendering library
+    maven {
+        name = 'BlameJared'
+        url = 'https://maven.blamejared.com'
+    }
+
+    // GeckoLib - animation library
+    maven {
+        name = 'GeckoLib'
+        url = 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
+        content {
+            includeGroupByRegex("software\\.bernie.*")
+            includeGroup("com.eliotlash.mclib")
+        }
+    }
+
+    // Satin API + Cardinal Components (Ladysnake)
+    maven {
+        name = 'Ladysnake Mods'
+        url = 'https://maven.ladysnake.org/releases'
+        content {
+            includeGroup 'io.github.ladysnake'
+            includeGroup 'org.ladysnake'
+            includeGroupByRegex 'dev\\.onyxstudios.*'
+        }
+    }
+
+    // Modrinth Maven (fallback for mod dependencies)
+    maven {
+        name = 'Modrinth'
+        url = 'https://api.modrinth.com/maven'
+        content {
+            includeGroup 'maven.modrinth'
+        }
+    }
+}
+
+dependencies {
+    // ──────────────────────────────────────────────
+    // Core Fabric
+    // ──────────────────────────────────────────────
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+
+    // ──────────────────────────────────────────────
+    // Veil - Primary rendering engine (Jar-in-Jar)
+    // Post-processing, shadow mapping, GLSL pipeline,
+    // Quasar particles, framebuffers, perspective rendering
+    // ──────────────────────────────────────────────
+    modImplementation("foundry.veil:veil-fabric-${project.minecraft_version}:${project.veil_version}")
+    include("foundry.veil:veil-fabric-${project.minecraft_version}:${project.veil_version}")
+
+    // ──────────────────────────────────────────────
+    // GeckoLib - Entity/Block animation (Jar-in-Jar)
+    // Keyframe animation, model rendering, bone manipulation
+    // ──────────────────────────────────────────────
+    modImplementation("software.bernie.geckolib:geckolib-fabric-${project.minecraft_version}:${project.geckolib_version}")
+    include("software.bernie.geckolib:geckolib-fabric-${project.minecraft_version}:${project.geckolib_version}")
+
+    // ──────────────────────────────────────────────
+    // Satin API - Shader utilities (Jar-in-Jar)
+    // ManagedShaderEffect, post-processing helpers
+    // ──────────────────────────────────────────────
+    modImplementation("org.ladysnake:satin:${project.satin_version}")
+    include("org.ladysnake:satin:${project.satin_version}")
+}
+
+processResources {
+    inputs.property "version", project.version
+    inputs.property "minecraft_version", project.minecraft_version
+    inputs.property "loader_version", project.loader_version
+    inputs.property "mod_id", project.mod_id
+    filteringCharset "UTF-8"
+
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version,
+                "minecraft_version": project.minecraft_version,
+                "loader_version": project.loader_version,
+                "mod_id": project.mod_id
+    }
+}
+
+// MC 1.21.1 requires Java 21
+def targetJavaVersion = 21
+tasks.withType(JavaCompile).configureEach {
+    it.options.encoding = "UTF-8"
+    if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
+        it.options.release.set(targetJavaVersion)
+    }
+}
+
+java {
+    def javaVersion = JavaVersion.toVersion(targetJavaVersion)
+    if (JavaVersion.current() < javaVersion) {
+        toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+    }
+    withSourcesJar()
+}
+
+jar {
+    from("LICENSE") {
+        rename { "${it}_${project.archives_base_name}" }
+    }
+}
+
+// Maven publishing (optional, for local use)
+publishing {
+    publications {
+        create("mavenJava", MavenPublication) {
+            artifactId = project.archives_base_name
+            from components.java
+        }
+    }
+
+    repositories {
+        // Uncomment to publish to local Maven
+        // mavenLocal()
+    }
+}

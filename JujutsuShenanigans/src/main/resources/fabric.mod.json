@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "id": "${mod_id}",
+  "version": "${version}",
+  "name": "Jujutsu Shenanigans",
+  "description": "A Jujutsu Kaisen-inspired Minecraft mod with cinematic visual effects, cursed energy mechanics, and domain expansions.",
+  "authors": [
+    "JujutsuShenanigans Team"
+  ],
+  "contact": {
+    "homepage": "",
+    "sources": ""
+  },
+  "license": "All-Rights-Reserved",
+  "icon": "assets/jujutsushenanigans/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.jujutsushenanigans.JujutsuShenanigans"
+    ],
+    "client": [
+      "com.jujutsushenanigans.client.JujutsuShenanigansClient"
+    ]
+  },
+  "mixins": [
+    "jujutsushenanigans.mixins.json",
+    {
+      "config": "jujutsushenanigans.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "minecraft": "~1.21.1",
+    "java": ">=21",
+    "fabric-api": "*"
+  },
+  "suggests": {
+    "geckolib": "*",
+    "veil": "*"
+  }
+}
