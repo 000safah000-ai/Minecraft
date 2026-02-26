@@ -14,11 +14,11 @@ import net.minecraft.registry.Registry;
 public class ModItems {
 
     // ═══════════════════════════════════════════════
-    // Example item registration (uncomment when needed):
-    //
-    // public static final Item CURSED_FINGER = registerItem("cursed_finger",
-    //     new Item(new Item.Settings().maxCount(1)));
+    // Item registrations
     // ═══════════════════════════════════════════════
+
+    public static final Item SIX_EYES = registerItem("six_eyes",
+            new com.jujutsushenanigans.item.custom.SixEyesItem(new Item.Settings().maxCount(1)));
 
     // ── Registration Helper ──
 

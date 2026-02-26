@@ -1,0 +1,15 @@
+{
+  "stages": [
+    {
+      "name": "six_eyes_hallucination",
+      "program": "jujutsushenanigans:six_eyes_hallucination",
+      "inputs": [
+        {
+          "sampler_name": "DiffuseSampler",
+          "target": "minecraft:main"
+        }
+      ],
+      "output": "minecraft:main"
+    }
+  ]
+}

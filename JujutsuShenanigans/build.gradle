@@ -23,6 +23,11 @@ loom {
 }
 
 repositories {
+    maven {
+        name = 'Fabric'
+        url = 'https://maven.fabricmc.net/'
+    }
+
     // Veil (FoundryMC) - primary rendering library
     maven {
         name = 'BlameJared'

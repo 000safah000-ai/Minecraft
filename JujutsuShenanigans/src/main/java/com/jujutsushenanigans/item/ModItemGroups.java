@@ -25,8 +25,7 @@ public class ModItemGroups {
                     .displayName(Text.translatable("itemGroup.jujutsushenanigans.jujutsu_group"))
                     .entries((displayContext, entries) -> {
                         // ── Add all mod items here ──
-                        // entries.add(ModItems.CURSED_FINGER);
-                        // entries.add(ModBlocks.CURSED_STONE);
+                        entries.add(ModItems.SIX_EYES);
                     })
                     .build()
     );

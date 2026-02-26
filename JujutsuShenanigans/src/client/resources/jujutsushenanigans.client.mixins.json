@@ -4,6 +4,8 @@
   "package": "com.jujutsushenanigans.mixin.client",
   "compatibilityLevel": "JAVA_21",
   "client": [
+    "BipedEntityModelMixin",
+    "LivingEntityRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1
