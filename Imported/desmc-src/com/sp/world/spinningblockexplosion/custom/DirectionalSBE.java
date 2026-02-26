@@ -1,0 +1,64 @@
+/*
+ * Decompiled with CFR 0.152.
+ * 
+ * Could not load the following classes:
+ *  net.minecraft.class_1297
+ *  net.minecraft.class_1937
+ *  net.minecraft.class_243
+ */
+package com.sp.world.spinningblockexplosion.custom;
+
+import com.sp.cca.InitializeComponents;
+import com.sp.cca.custom.entity.SpinningBlockComponent;
+import com.sp.entity.ModEntities;
+import com.sp.entity.custom.SpinningBlockEntity;
+import com.sp.world.spinningblockexplosion.SpinningBlockExplosion;
+import net.minecraft.class_1297;
+import net.minecraft.class_1937;
+import net.minecraft.class_243;
+
+public class DirectionalSBE
+extends SpinningBlockExplosion {
+    private final int length;
+    private final int width;
+    private final float angle;
+    private final float blockDensity;
+    private int delay;
+
+    public DirectionalSBE(int length, int width, float angle, float blockDensity, class_243 centerPos) {
+        super(centerPos);
+        this.length = length;
+        this.width = width;
+        this.angle = angle;
+        this.blockDensity = blockDensity;
+    }
+
+    @Override
+    public void explode() {
+        super.explode();
+        if (this.delay <= 0) {
+            if (this.progress > this.length * 2) {
+                this.explode = false;
+                SpinningBlockExplosion.removeExplosion(this);
+            }
+            for (int x = -this.width; x < this.width; ++x) {
+                SpinningBlockEntity spinningBlockEntity;
+                if (!(this.random.method_43057() < this.blockDensity) || (spinningBlockEntity = (SpinningBlockEntity)ModEntities.SPINNING_BLOCK.method_5883((class_1937)this.world)) == null) continue;
+                SpinningBlockComponent component = (SpinningBlockComponent)InitializeComponents.SPINNING_BLOCK.get((Object)spinningBlockEntity);
+                class_243 newBlockPos = new class_243((double)x, -5.0, (double)(this.progress - this.length * 2)).method_1024((float)Math.toRadians(this.angle));
+                float randomYAcceleration = spinningBlockEntity.method_59922().method_43057() * 0.05f + 0.3f;
+                component.setAcceleration(0.0f, randomYAcceleration, 0.0f);
+                component.setApplyGravity(false);
+                spinningBlockEntity.field_5960 = true;
+                component.sync();
+                spinningBlockEntity.method_60949(this.position.method_1019(newBlockPos), 0.0f, 0.0f);
+                this.world.method_8649((class_1297)spinningBlockEntity);
+            }
+            this.delay = 0;
+            this.progress += 2;
+        } else {
+            --this.delay;
+        }
+    }
+}
+
