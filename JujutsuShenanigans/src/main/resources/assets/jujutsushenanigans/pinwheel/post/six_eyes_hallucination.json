@@ -1,15 +1,13 @@
 {
-  "stages": [
+  "priority": 1000,
+  "passes": [
     {
-      "name": "six_eyes_hallucination",
-      "program": "jujutsushenanigans:six_eyes_hallucination",
-      "inputs": [
-        {
-          "sampler_name": "DiffuseSampler",
-          "target": "minecraft:main"
-        }
-      ],
-      "output": "minecraft:main"
+      "type": "veil:blit",
+      "shader": "jujutsushenanigans:six_eyes_hallucination",
+      "in": {
+        "DiffuseSampler": "minecraft:main"
+      },
+      "out": "minecraft:main"
     }
   ]
 }

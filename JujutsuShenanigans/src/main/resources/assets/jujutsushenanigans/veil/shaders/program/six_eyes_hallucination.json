@@ -1,0 +1,13 @@
+{
+  "vertex": "jujutsushenanigans:post",
+  "fragment": "jujutsushenanigans:six_eyes_hallucination",
+  "sampler": [
+    "DiffuseSampler"
+  ],
+  "uniform": {
+    "ProjMat": "matrix4x4",
+    "OutSize": "float2",
+    "Time": "float",
+    "Intensity": "float"
+  }
+}

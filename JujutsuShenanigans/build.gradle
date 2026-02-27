@@ -85,9 +85,10 @@ dependencies {
     // ──────────────────────────────────────────────
     // GeckoLib - Entity/Block animation (Jar-in-Jar)
     // Keyframe animation, model rendering, bone manipulation
+    // NOTE: Currently unused - uncomment when GeckoLib models are added
     // ──────────────────────────────────────────────
-    modImplementation("software.bernie.geckolib:geckolib-fabric-${project.minecraft_version}:${project.geckolib_version}")
-    include("software.bernie.geckolib:geckolib-fabric-${project.minecraft_version}:${project.geckolib_version}")
+    // modImplementation("software.bernie.geckolib:geckolib-fabric-${project.minecraft_version}:${project.geckolib_version}")
+    // include("software.bernie.geckolib:geckolib-fabric-${project.minecraft_version}:${project.geckolib_version}")
 
     // ──────────────────────────────────────────────
     // Satin API - Shader utilities (Jar-in-Jar)
@@ -127,6 +128,11 @@ java {
         toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
     }
     withSourcesJar()
+}
+
+// Handle duplicate source files across split source sets
+tasks.named("sourcesJar") {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
 jar {

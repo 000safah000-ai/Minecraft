@@ -12,7 +12,6 @@
     "sources": ""
   },
   "license": "All-Rights-Reserved",
-  "icon": "assets/jujutsushenanigans/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [

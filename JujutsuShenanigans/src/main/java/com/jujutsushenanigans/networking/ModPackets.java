@@ -1,62 +1,42 @@
 package com.jujutsushenanigans.networking;
 
 import com.jujutsushenanigans.JujutsuShenanigans;
+import com.jujutsushenanigans.networking.C2S.ToggleInfinityC2SPacket;
+import com.jujutsushenanigans.networking.S2C.InfinitySyncS2CPacket;
+import com.jujutsushenanigans.networking.S2C.InfinityTouchS2CPacket;
+import com.jujutsushenanigans.networking.S2C.SixEyesSyncS2CPacket;
+import com.jujutsushenanigans.InfinityState;
+import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.server.network.ServerPlayerEntity;
 
-/**
- * Networking registration hub.
- * <p>
- * Architecture (learned from desmc reference):
- * - Each packet is a Java {@code record} implementing {@code CustomPayload}
- * - Each record has a static {@code ID} and {@code CODEC}
- * - Server packets (S2C) are registered in {@link #registerClientPackets()}
- * - Client packets (C2S) are registered in {@link #registerServerPackets()}
- * <p>
- * Usage pattern:
- * <pre>
- * // Define payload
- * public record MyPayload(int value) implements CustomPayload {
- *     public static final CustomPayload.Id&lt;MyPayload&gt; ID =
- *         new CustomPayload.Id&lt;&gt;(JujutsuShenanigans.id("my_payload"));
- *     public static final PacketCodec&lt;PacketByteBuf, MyPayload&gt; CODEC =
- *         PacketCodec.tuple(PacketCodecs.INTEGER, MyPayload::value, MyPayload::new);
- *
- *     &#64;Override
- *     public Id&lt;? extends CustomPayload&gt; getId() { return ID; }
- * }
- *
- * // Register S2C in registerServerPackets():
- * PayloadTypeRegistry.playS2C().register(MyPayload.ID, MyPayload.CODEC);
- *
- * // Handle on client in registerClientPackets():
- * ClientPlayNetworking.registerGlobalReceiver(MyPayload.ID, (payload, context) -&gt; { ... });
- * </pre>
- */
 public class ModPackets {
-
-    /**
-     * Registers server-side packet handlers (C2S receivers)
-     * and S2C payload types.
-     * Called from {@link JujutsuShenanigans#onInitialize()}.
-     */
     public static void registerServerPackets() {
         JujutsuShenanigans.LOGGER.debug("Registering server packets...");
 
-        // ── Register C2S packet types ──
-        // PayloadTypeRegistry.playC2S().register(MyC2SPayload.ID, MyC2SPayload.CODEC);
-        // ServerPlayNetworking.registerGlobalReceiver(MyC2SPayload.ID, (payload, context) -> { ... });
+        // C2S
+        PayloadTypeRegistry.playC2S().register(ToggleInfinityC2SPacket.ID, ToggleInfinityC2SPacket.CODEC);
+        ServerPlayNetworking.registerGlobalReceiver(ToggleInfinityC2SPacket.ID, (payload, context) -> {
+            ServerPlayerEntity player = context.player();
+            context.server().execute(() -> {
+                if (player instanceof InfinityState state) {
+                    boolean newState = !state.isInfinityActive();
+                    state.setInfinityActive(newState);
+                    
+                    // Sync to all tracking clients
+                    InfinitySyncS2CPacket syncPacket = new InfinitySyncS2CPacket(player.getId(), newState);
+                    for (ServerPlayerEntity tracker : player.server.getPlayerManager().getPlayerList()) {
+                        if (tracker.getWorld() == player.getWorld() && tracker.squaredDistanceTo(player) < 10000) {
+                            ServerPlayNetworking.send(tracker, syncPacket);
+                        }
+                    }
+                }
+            });
+        });
 
-        // ── Register S2C packet types (type registration is common-side) ──
-        // PayloadTypeRegistry.playS2C().register(MyS2CPayload.ID, MyS2CPayload.CODEC);
-    }
-
-    /**
-     * Registers client-side packet handlers (S2C receivers).
-     * Called from {@link com.jujutsushenanigans.client.JujutsuShenanigansClient#onInitializeClient()}.
-     */
-    public static void registerClientPackets() {
-        JujutsuShenanigans.LOGGER.debug("Registering client packets...");
-
-        // ── Register S2C receivers ──
-        // ClientPlayNetworking.registerGlobalReceiver(MyS2CPayload.ID, (payload, context) -> { ... });
+        // S2C
+        PayloadTypeRegistry.playS2C().register(SixEyesSyncS2CPacket.ID, SixEyesSyncS2CPacket.CODEC);
+        PayloadTypeRegistry.playS2C().register(InfinitySyncS2CPacket.ID, InfinitySyncS2CPacket.CODEC);
+        PayloadTypeRegistry.playS2C().register(InfinityTouchS2CPacket.ID, InfinityTouchS2CPacket.CUSTOM_CODEC);
     }
 }

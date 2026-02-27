@@ -1,4 +1,7 @@
 {
-  "itemGroup.jujutsushenanigans.jujutsu_group": "Jujutsu Shenanigans",
-  "item.jujutsushenanigans.six_eyes": "Six Eyes"
+  "itemGroup.jujutsushenanigans.items": "Jujutsu Shenanigans",
+  "item.jujutsushenanigans.six_eyes": "Six Eyes",
+  "effect.jujutsushenanigans.six_eyes_effect": "Six Eyes Overload",
+  "key.jujutsushenanigans.toggle_infinity": "Toggle Infinity",
+  "category.jujutsushenanigans.abilities": "Jujutsu Abilities"
 }
