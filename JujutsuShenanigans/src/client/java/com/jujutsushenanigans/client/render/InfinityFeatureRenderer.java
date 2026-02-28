@@ -19,11 +19,17 @@ import ladysnake.satin.api.managed.ShaderEffectManager;
 public class InfinityFeatureRenderer extends FeatureRenderer<AbstractClientPlayerEntity, PlayerEntityModel<AbstractClientPlayerEntity>> {
 
     // Use Satin to load a custom core shader for the entity rendering
-    public static final ManagedCoreShader INFINITY_SHADER = ShaderEffectManager.getInstance()
-            .manageCoreShader(JujutsuShenanigans.id("infinity_shield"));
+    private static ManagedCoreShader INFINITY_SHADER;
 
     public InfinityFeatureRenderer(FeatureRendererContext<AbstractClientPlayerEntity, PlayerEntityModel<AbstractClientPlayerEntity>> context) {
         super(context);
+    }
+
+    private static ManagedCoreShader getShader() {
+        if (INFINITY_SHADER == null) {
+            INFINITY_SHADER = ShaderEffectManager.getInstance().manageCoreShader(JujutsuShenanigans.id("infinity_shield"));
+        }
+        return INFINITY_SHADER;
     }
 
     @Override
@@ -41,7 +47,7 @@ public class InfinityFeatureRenderer extends FeatureRenderer<AbstractClientPlaye
             // We need to tell the vertex consumer to use our shader.
             // We use the entity's base texture just to provide UVs, the shader will override the color.
             RenderLayer baseLayer = RenderLayer.getEntityTranslucent(entity.getSkinTextures().texture());
-            RenderLayer layer = INFINITY_SHADER.getRenderLayer(baseLayer);
+            RenderLayer layer = getShader().getRenderLayer(baseLayer);
             
             VertexConsumer vertexConsumer = vertexConsumers.getBuffer(layer);
             
