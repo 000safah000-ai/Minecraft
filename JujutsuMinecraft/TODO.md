@@ -17,5 +17,6 @@
 8. **Implement Helix Spiral & Volumetric Bloom**: Add the DNA-like secondary orbiting particles and the semi-transparent bloom layers for the 'unstable energy' effect.
 9. **Implement Block Heating Physics**: Handle the block heat state, realistic reddish-orange rendering overlay on hit blocks, and the 2-second linear fade out.
 10. **Final Optimization & Stability Checks**: Handle crash catching, enforce the 5% frame time limit, verify 60 FPS on mid-specs, and test thoroughly.
+13. **High Quality AAA Shaders**: Re-write `laser_beam.fsh` to use procedural noise for rumbling lightning, volumetric bloom, core texture and helix spiral to match the AAA visual constraints.
 
 ### PLANNED

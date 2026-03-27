@@ -8,7 +8,8 @@
 - *DO NOT END* any task without testing build with (gradle/gradlew) if failure fix the error then test again until you get a successful build.
 - *USE* javadoc comments and 'LOGGER' for errors in new classes.
 - *YOU MUST* register any new classes, shaders and files in the main (client/server) classes and files so the mod should load all shaders and classes in it.
-DO NOT CREATE* multiple empty terminals if there was already one open, also if you want to test build open *ONLY* one terminal /*THEN SEND A REAL BUILD COMMAND USING TOOLS I GAVE YOU IN AGENTS.md DO NOT DO A LOOP OF EMPTY TERMINALS*/
+DO NOT CREATE* multiple empty terminals if there was already one open, also if you want to test build open *ONLY* one terminal /*THEN SEND A REAL BUILD COMMAND USING TOOLS I GAVE YOU IN AGENTS.md DO NOT DO A LOOP OF EMPTY TERMINALS*/ /( *note :* If you want to send a command or build and you opened a terminal, After opening a terminal send the command immediately because the terminal you created will be automatically made and used as default at the codespace so make a terminal then send the command dont check if the terminal is available or open just concentrate on sending the command to the terminal you opened just assume its open, no need to over-check because there is no official tool for checking terminals.) /
+- *AFTER SENDING* to ensure that the terminal and the command opened and sent successfully check the output using /last_terminal_command/ I suppose you know that earlier. 
 
 ##3. Thirdly, Strict Architecture Rules.
 ### 1. Library Versions :
