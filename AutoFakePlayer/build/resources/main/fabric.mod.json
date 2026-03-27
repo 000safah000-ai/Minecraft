@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "autofakeplayer",
+  "version": "1.0.0",
+  "name": "Auto Fake Player",
+  "description": "Automatically creates a fake player and keeps them active on the server.",
+  "authors": [
+    "Gemini"
+  ],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/autofakeplayer/icon.png",
+  "environment": "server",
+  "entrypoints": {
+    "main": [
+      "com.example.autofakeplayer.AutoFakePlayerMod"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.14.22",
+    "minecraft": "~1.20.1",
+    "java": ">=17",
+    "fabric-api": "*"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}

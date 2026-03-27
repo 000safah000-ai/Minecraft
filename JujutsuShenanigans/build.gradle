@@ -30,8 +30,13 @@ repositories {
 
     // Veil (FoundryMC) - primary rendering library
     maven {
+        name = "FoundryMC"
+        url = "https://maven.foundrymc.com/releases"
+    }
+    // BlameJared mirror (fallback)
+    maven {
         name = 'BlameJared'
-        url = 'https://maven.blamejared.com'
+        url = 'https://maven.blamejared.com/'
     }
 
     // GeckoLib - animation library
@@ -81,6 +86,7 @@ dependencies {
     // ──────────────────────────────────────────────
     modImplementation("foundry.veil:veil-fabric-${project.minecraft_version}:${project.veil_version}")
     include("foundry.veil:veil-fabric-${project.minecraft_version}:${project.veil_version}")
+    // veil-common removed: veil-fabric already provides the required capability.
 
     // ──────────────────────────────────────────────
     // GeckoLib - Entity/Block animation (Jar-in-Jar)

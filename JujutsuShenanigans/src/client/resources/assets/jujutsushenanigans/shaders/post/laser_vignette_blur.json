@@ -1,0 +1,18 @@
+{
+    "targets": [
+        "swap"
+    ],
+    "passes": [
+        {
+            "name": "jujutsushenanigans:laser_vignette_blur",
+            "intarget": "minecraft:main",
+            "outtarget": "swap",
+            "uniforms": [
+                {
+                    "name": "Intensity",
+                    "values": [ 1.0 ]
+                }
+            ]
+        }
+    ]
+}

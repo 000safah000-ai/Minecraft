@@ -35,11 +35,9 @@
     "fabricloader": ">=${loader_version}",
     "minecraft": "~1.21.1",
     "java": ">=21",
-    "fabric-api": "*",
-    "satin": "*"
+    "fabric-api": "*"
   },
   "suggests": {
-    "geckolib": "*",
-    "veil": "*"
+    "geckolib": "*"
   }
 }

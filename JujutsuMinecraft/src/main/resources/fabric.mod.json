@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "jujutsuminecraft",
+  "version": "${version}",
+  "name": "Jujutsu Minecraft",
+  "description": "Jujutsu Minecraft Mod",
+  "authors": [
+    "Me"
+  ],
+  "contact": {},
+  "license": "CC0-1.0",
+  "icon": "assets/jujutsuminecraft/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.jujutsuminecraft.JujutsuMinecraft"
+    ],
+    "client": [
+      "com.jujutsuminecraft.client.JujutsuMinecraftClient"
+    ]
+  },
+  "mixins": [
+    "jujutsuminecraft.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.16.14",
+    "minecraft": "~1.21.1",
+    "java": ">=21"
+  }
+}

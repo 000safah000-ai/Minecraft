@@ -12,8 +12,8 @@ import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.render.entity.model.PlayerEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
-import ladysnake.satin.api.managed.ManagedCoreShader;
-import ladysnake.satin.api.managed.ShaderEffectManager;
+import org.ladysnake.satin.api.managed.ManagedCoreShader;
+import org.ladysnake.satin.api.managed.ShaderEffectManager;
 
 @Environment(EnvType.CLIENT)
 public class InfinityFeatureRenderer extends FeatureRenderer<AbstractClientPlayerEntity, PlayerEntityModel<AbstractClientPlayerEntity>> {
