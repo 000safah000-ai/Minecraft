@@ -5,6 +5,7 @@
 ### IN-PROGRESS
 
 ### DONE
+14. **Fix Build Error**: Corrected Veil shader rendering API usage in `LaserVeilRenderer.java` (using `ShaderProgram` interface and removing non-existent `ShaderManager.getInstance().registerShader()`), resulting in a successful build.
 12. **Architecture Compliance Check**: Verified recent updates to `CONSTRAINTS.md` regarding Strict Architecture Rules (Entrypoints, Mixins, Event Registrations) and successfully verified `JujutsuMinecraftClient` exists and implements `ClientModInitializer`.
 11. **Fix Gradle Environment**: Follow new AGENTS.md instructions. Revert to 1.20.1 and modify Veil/Satin API versions to correctly resolve from Modrinth/Ladysnake.
 1. **Define Keybinds & Networking**: Register `G` key (default) for toggling the laser beam, and set up the C2S/S2C packets to sync laser state with the server.
