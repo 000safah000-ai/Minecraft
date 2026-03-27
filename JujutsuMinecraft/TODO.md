@@ -5,6 +5,7 @@
 ### IN-PROGRESS
 
 ### DONE
+11. **Fix Gradle Environment**: Follow new AGENTS.md instructions. Revert to 1.20.1 and modify Veil/Satin API versions to correctly resolve from Modrinth/Ladysnake.
 1. **Define Keybinds & Networking**: Register `G` key (default) for toggling the laser beam, and set up the C2S/S2C packets to sync laser state with the server.
 2. **Setup Basic Veil Shader Registration**: Import Veil libraries and register a custom Veil renderer core for the laser beam to hook into the game rendering loop.
 3. **Setup Basic Satin API Post-Processing Registration**: Initialize the Satin API to load and manage the Vignette and Blur post-processing shaders when the laser is active.

@@ -5,7 +5,8 @@
 ## TOOLS : 
 - GLSL shaders language, Veil library for Managing and creating shaders, effects and particles for the mod. 
 - Satin API for post processing and display shaders, particles and effects.
-- Gecko-library for 3d models and animation. 
+- Gecko-library for 3d models and animation.
+- Use `Edit Block` to replace small sections (e.g., version numbers, plugin versions) instead of rewriting entire files.
 
 ## WORKFLOW :
 1. Read (AGENTS.md , CONSTRAINTS.md , TODO.md) Carefully and follow them as your main guide lead when coding and planning, /note : follow AGENTS.md rules and Info about the Project./
@@ -16,7 +17,7 @@
 
 ## CONSTRAINTS :
 - *DO NOT DELETE* any important shader, effect, particle or class without my permission or without extreme need /( if you want to remove an unused, old class or shader you have the full permission just tell me you did it and why.)./
-- *DO NOT USE* the same tools several times if it fails, always try another tools and rely heavily 'run.in.terminal' tool and always try it more than once if it doesn't work the first time. 
+- *DO NOT USE* the same tools several times if it fails, always try another tools and rely heavily 'terminal. tools_sendCommand' tool and always try it more than once if it doesn't work the first time. 
 
 ## OUTPUT :
 - *Reply with English Only*
