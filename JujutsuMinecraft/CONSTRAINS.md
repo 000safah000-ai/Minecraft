@@ -9,3 +9,34 @@
 - *USE* javadoc comments and 'LOGGER' for errors in new classes.
 - *YOU MUST* register any new classes, shaders and files in the main (client/server) classes and files so the mod should load all shaders and classes in it.
 DO NOT CREATE* multiple empty terminals if there was already one open, also if you want to test build open *ONLY* one terminal /*THEN SEND A REAL BUILD COMMAND USING TOOLS I GAVE YOU IN AGENTS.md DO NOT DO A LOOP OF EMPTY TERMINALS*/
+
+##3. Thirdly, Strict Architecture Rules.
+### 1. Library Versions :
+- *BEFORE* adding any library, verify compatibility with Minecraft 1.20.1.
+- *Use* `curl` to query Modrinth API: `curl -s https://api.modrinth.com/v2/project/<project>/version | jq`.
+### 2. Event Registration :
+- All event listeners *MUST* be registered in the mod initializer (or client initializer).
+- Fabric API does *NOT* auto-register events.
+- *Example:* /`YourEvent.EVENT.register(() -> { ... });`/
+### 3. Client vs Server Code :
+- *Mark* client-only code with /`@Environment(EnvType.CLIENT)`./
+- *Mark* server-only code with /`@Environment(EnvType.SERVER)`./
+- Common code goes in /`src/main/java/`./
+- Client code goes in /`src/client/java/`./
+### 4. Assets :
+- Client assets: /`src/client/resources/assets/<modid>/`./
+- Common assets: `src/main/resources/assets/<modid>/`.
+- Textures, models, shaders: place in correct subfolder (`textures/`, `models/`, `shaders/`).
+### 5. Keybinds
+- Keybinds *MUST* be registered in /`ClientModInitializer`./
+- Example: /`KeyBindingHelper.registerKeyBinding(new KeyBinding("key.mod.laser", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_G, "category.mod"));`/
+### 6. Mixins
+- *ONLY* add mixins if absolutely necessary.
+- If added, the mixin config file *AND* at least one mixin class *MUST* exist.
+- Mixin config goes in /`src/main/resources/<modid>.mixins.json`./
+### 7. Entrypoints & Classes
+- For *EVERY* entrypoint in /`fabric.mod.json`,/ the corresponding Java class MUST exist.
+- Client entrypoint class *MUST* be in `src/client/java/<package>/<ClassName>.java` and implement `ClientModInitializer`.
+- Main entrypoint class *MUST* be in /`src/main/java/<package><ClassName>.java`/ and implement `ModInitializer`.
+- *NEVER* add an entrypoint without creating its class.
+- *Example:* If `"client"` entrypoint points to `com.jujutsuminecraft.client.JujutsuMinecraftClient`, the file `src/client/java/com/jujutsuminecraft/client/JujutsuMinecraftClient.java` *MUST* exist with `onInitializeClient()` method.
