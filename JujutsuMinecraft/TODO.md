@@ -5,6 +5,7 @@
 ### IN-PROGRESS
 
 ### DONE
+16. **Include Veil via Jar-in-Jar (JiJ)**: Added `include "foundry.veil:Veil-fabric-1.20.1:${project.veil_version}"` to `build.gradle` dependencies so the runtime classloader correctly wraps Veil when running in production or testing, resolving the NoClassDefFound crashes during keybind trigger.
 15. **Fix Keybind Unresponsiveness**: Hooked rendering callbacks inside `WorldRenderEvents.LAST` to actually call `LaserVeilRenderer.renderLaserCore` and trigger `SatinPostProcess` when `LaserKeybind.isLaserActive` is active. Implemented actual 3D tessellator draw geometry in `LaserVeilRenderer.java` and modified `laser_beam.vsh` to take camera projection matrices (`ProjMat`, `ModelViewMat`).
 14. **Fix Build Error**: Corrected Veil shader rendering API usage in `LaserVeilRenderer.java` (using `ShaderProgram` interface and removing non-existent `ShaderManager.getInstance().registerShader()`), resulting in a successful build.
 12. **Architecture Compliance Check**: Verified recent updates to `CONSTRAINTS.md` regarding Strict Architecture Rules (Entrypoints, Mixins, Event Registrations) and successfully verified `JujutsuMinecraftClient` exists and implements `ClientModInitializer`.

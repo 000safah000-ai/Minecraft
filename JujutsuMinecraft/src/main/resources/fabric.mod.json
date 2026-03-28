@@ -12,6 +12,9 @@
   "icon": "assets/jujutsuminecraft/icon.png",
   "environment": "*",
   "entrypoints": {
+    "preLaunch": [
+      "com.jujutsuminecraft.JujutsuMinecraftPreLaunch"
+    ],
     "main": [
       "com.jujutsuminecraft.JujutsuMinecraft"
     ],

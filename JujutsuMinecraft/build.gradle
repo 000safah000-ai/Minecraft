@@ -38,7 +38,8 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-    modImplementation "foundry.veil:Veil-fabric-1.20.1:${project.veil_version}"
+    modImplementation "maven.modrinth:veil:${project.veil_version}"
+    include "maven.modrinth:veil:${project.veil_version}"
 
     modImplementation "org.ladysnake:satin:${project.satin_version}"
     include "org.ladysnake:satin:${project.satin_version}"
